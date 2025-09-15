@@ -27,6 +27,11 @@ ccna/
 ├── learn/       # Notes & explanations for each topic
 └── README.md
 ```
+
+## 📂 Directory
+- [labs/](labs/) — Practical scenarios, configs, and topologies
+- [learn/](learn/) — Notes & explanations I figured out (teaching while learning)
+
 ## 🛠️ Tech Focus
 - Cisco IOS CLI Commands  
 - Routing & Switching  
