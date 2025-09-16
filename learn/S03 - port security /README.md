@@ -64,6 +64,19 @@ line console 0
   password 123
   login
 ```
+
+### 🔑 Extra: Removing Encryption
+
+If you want to remove the encryption applied by `service password-encryption`,  
+use the command:
+
+```cisco
+Switch(config)# no service password-encryption
+```
+Now, when you check the running configuration again:
+- The command **does not actually decrypt stored values**;
+it simply stops encrypting **new or updated passwords**.
+- Already encrypted ones may remain until reconfigured
 ### ✅ Verification:
 - Exit the console session (close terminal).
 - Reconnect to the switch via console.
