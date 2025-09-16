@@ -30,7 +30,7 @@ It contains both:
 - **`labs/`** → Practical scenarios, configs, and topologies.  
 - **`learn/`** → Notes & explanations I figured out (like teaching while learning).  
 
-This repo is not just for practice – it’s a **personal hacking-style notebook** 🕶️.
+This repo is not just for practice – it’s a **personal notebook** 🕶️.
 
 ---
 
