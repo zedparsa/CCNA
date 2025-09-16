@@ -92,3 +92,28 @@ This method is weak because:
 So what should we do? 🤔  
 - In the next part you will get the answer.  
 - For now, just practice this method to understand the basics.
+
+
+---
+---
+---
+## 📖 Part 2 — Local Authentication:
+
+
+### 📝 Summary:
+Using only passwords can lead to many problems. For example, if we have three users who need to log in to a Cisco device with different access levels, we must create **three separate users**. This can be accomplished using **local authentication**.
+
+### 🎯 Objectives:
+
+
+### 🧩 Topology:
+
+
+### 🛠️ Step-by-Step:
+```cisco
+
+```
+### ✅ Verification:
+
+
+### ⚠️ Note:
