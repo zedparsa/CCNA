@@ -42,6 +42,28 @@ Use the following commands to configure a console password :
 
 </p>
 
+### 🔑 Extra: Securing with `service password-encryption`
+
+Another method is to use the command `service password-encryption`.  
+This command hides all plain-text passwords in the running configuration by converting them into Type 7.  
+
+If you add the command service password-encryption in global configuration: 
+```cisco
+Switch(config)# service password-encryption
+```
+Then in show running-config the password will appear encrypted (Type 7):
+```cisco
+line console 0
+  password 7 0822455D0A16
+  login
+```
+
+And if you don't add :
+```cisco
+line console 0
+  password 123
+  login
+```
 ### ✅ Verification:
 - Exit the console session (close terminal).
 - Reconnect to the switch via console.
