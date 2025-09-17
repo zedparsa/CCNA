@@ -35,10 +35,10 @@ Use the following commands to configure a console password :
 
 | Command              | Description                         |
 |----------------------|-------------------------------------|
-| line console 0       | Enter console line configuration    |
-| password 123         | Set console password (123)          |
-| login                | Enable password checking on console |
-| end / Ctrl+Z         | Exit to privileged EXEC mode        |
+| `line console 0 `      | Enter console line configuration    |
+| `password 123`         | Set console password (123)          |
+| `login`                | Enable password checking on console |
+| `end` / `Ctrl+Z`         | Exit to privileged EXEC mode        |
 
 </p>
 
@@ -101,19 +101,80 @@ So what should we do? 🤔
 
 
 ### 📝 Summary:
-Using only passwords can lead to many problems. For example, if we have three users who need to log in to a Cisco device with different access levels, we must create **three separate users**. This can be accomplished using **local authentication**.
+Using only passwords can lead to many problems. For example, if we have three users who need to log in to a Cisco device with different access levels, we must create **three separate users**.
+Another problem that we may face is that if there are issues in the switch configuration, we won’t know who caused them because multiple users share access.
+This can be solved and accomplished using **local authentication**.
 
 ### 🎯 Objectives:
-
+- Understand why simple console passwords are insufficient when multiple users access a device.
+- Learn to create multiple local user accounts with different privilege levels.
+- Configure local authentication on a Cisco switch or router.
+- Verify which user is logged in and track user activity.
+- Recognize the benefits of using local authentication over a single shared password.
 
 ### 🧩 Topology:
 
+<p align="center">
+  <img src="topologies/port-security-1.png" alt="Port Security Topology" />
+</p>
+
+>  Agian
+- One PC and one Switch 
+- One PC connected to one Switch via a console cable (RS-232 → Console)
 
 ### 🛠️ Step-by-Step:
 ```cisco
-
+Switch> enable
+Switch# configure terminal
+Switch(config)# line console 0
+Switch(config-line)# login local  
+Switch(config-line)# exit
+Switch(config)# username parsa password 123456   
+Switch(config)# exit
+Switch# write memory                    
 ```
+| Command / Step                               | Description / Purpose                                         |
+|---------------------------------------------|---------------------------------------------------------------|
+| `line console 0`                             | Enter console line configuration mode                         |
+| `login local`                                | Enable login using usernames & passwords                       |
+| `exit`                                       | Exit console line configuration mode                           |
+| `username parsa password 123456`            | Create a user named "parsa" with a password (level 0)         |
+| `exit`                                       | Exit global configuration mode                                 |
+| `write memory` or `wr`                       | Save the configuration to NVRAM                                 |
+
 ### ✅ Verification:
 
+1. **Test login on console:**
+   - Disconnect and reconnect the console session.
+   - When prompted, type:
+     ```cisco
+     Username: parsa
+     Password: 123456
+     ```
+   - You should enter privileged or user mode depending on configuration.
+
+2. **Check users in running configuration:**
+    ```cisco
+    Switch> enable
+    Switch# show running-config
+    ```
+- You should see something like:
+  ```
+  username parsa password 0 123456
+  line console 0
+    login local
+  ```
+3. **Optional: Test multiple users**
+- Create additional users and verify each can log in with their own credentials.
+
+  
+### 🔹Key Points
+> Before we move to hashed passwords, here are some important things about local authentication:
+> - User-based access: Each user can have a unique username and password, making it easier to track who did what on the device.
+> - Multiple users: Avoid using a single password for everyone — local authentication allows multiple users with different credentials.
+> - Plaintext warning: Using username <name> password <pass> stores the password as level 0 (plain text) — visible in show running-config.
+> - Login local: Applying login local on console or VTY lines forces the device to ask for username + password instead of just a password.
+> - Privilege levels: Users can be assigned privilege levels (0–15) to control access, but for now, just focus on creating separate users.
 
 ### ⚠️ Note:
+Using plain passwords (level 0) **is not secure**. Later, you will learn how to use hashed passwords for stronger security.
