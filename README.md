@@ -42,6 +42,19 @@ ccna/
 └── README.md
 ```
 
+```c
+#include <learning.h>
+
+int main() {
+    while (curiosity == true) {
+        read();
+        lab();
+        write_notes();
+    }
+    return grow_as_engineer;
+}
+```
+
 ## 📂 Directory
 - [labs/](labs/) — Practical scenarios, configs, and topologies
 - [learn/](learn/) — Notes & explanations I figured out (teaching while learning)
