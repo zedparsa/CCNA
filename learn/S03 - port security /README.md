@@ -139,7 +139,6 @@ Switch# write memory
 | `login local`                                | Enable login using usernames & passwords                       |
 | `exit`                                       | Exit console line configuration mode                           |
 | `username parsa password 123456`            | Create a user named "parsa" with a password (level 0)         |
-| `exit`                                       | Exit global configuration mode                                 |
 | `write memory` or `wr`                       | Save the configuration to NVRAM                                 |
 
 ### ✅ Verification:
@@ -178,3 +177,34 @@ Switch# write memory
 
 ### ⚠️ Note:
 Using plain passwords (level 0) **is not secure**. Later, you will learn how to use hashed passwords for stronger security.
+
+---
+---
+---
+### 📖 Part 2.2 — Hash / Salted Password
+📝 Summary
+Using plaintext passwords is weak. Cisco allows hashed passwords (Type 5/9) to store credentials more securely.
+
+🎯 Objectives
+- Understand the difference between plaintext and hashed passwords.
+- Learn how to configure a hashed password for a user.
+- See how hashing with salt improves security.
+- Compare Type 0 (plaintext) vs Type 5 (MD5) vs Type 9 (scrypt) in `show running-config`.
+
+🛠️ Step-by-Step
+- Configure a user with a hashed password:
+```cisco
+Switch> enable
+Switch# configure terminal
+Switch(config)# username parsa secret 123456
+Switch(config)# username yazdan secret 654321
+Switch(config)# line console 0
+Switch(config-line)# login local
+Switch(config-line)# end
+```
+| Command                                | Description                                                                 |
+|----------------------------------------|-----------------------------------------------------------------------------|
+| `username parsa secret 123456`           | Create a local user named "parsa" with a secret password (type 5 hashed)  |
+| `username yazdan secret 654321`             | Create another local user named "yazdan" with a secret password              |
+
+
