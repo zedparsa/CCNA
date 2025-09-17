@@ -43,15 +43,19 @@ ccna/
 ```
 
 ```c
-#include <learning.h>
+#include <ccna.h>
 
 int main() {
-    while (curiosity == true) {
-        read();
-        lab();
-        write_notes();
+    setup_labs();
+    learn();
+
+    while (concepts != mastered) {
+        practice();
+        troubleshoot();
+        document();
     }
-    return grow_as_engineer;
+
+    return certified;
 }
 ```
 
