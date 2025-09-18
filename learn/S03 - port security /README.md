@@ -182,16 +182,20 @@ Using plain passwords (level 0) **is not secure**. Later, you will learn how to 
 ---
 ---
 ### 📖 Part 2.2 — Hash / Salted Password
-📝 Summary
+**📝 Summary**  
 Using plaintext passwords is weak. Cisco allows hashed passwords (Type 5/9) to store credentials more securely.
 
-🎯 Objectives
+💡 **Related Concepts:**
+> - Learn the basics of [Hash Functions](../../Extra-Notes/Security/Hash.md) — what they are and why they're used in password protection.
+> - Understand [Salt & Pepper](../../Extra-Notes/Security/Hash.md) — and how they make password hashes more secure.
+
+**🎯 Objectives**
 - Understand the difference between plaintext and hashed passwords.
 - Learn how to configure a hashed password for a user.
 - See how hashing with salt improves security.
 - Compare Type 0 (plaintext) vs Type 5 (MD5) vs Type 9 (scrypt) in `show running-config`.
 
-🛠️ Step-by-Step
+**🛠️ Step-by-Step**
 - Configure a user with a hashed password:
 ```cisco
 Switch> enable
