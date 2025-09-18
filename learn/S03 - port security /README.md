@@ -211,4 +211,19 @@ Switch(config-line)# end
 | `username parsa secret 123456`           | Create a local user named "parsa" with a secret password (type 5 hashed)  |
 | `username yazdan secret 654321`             | Create another local user named "yazdan" with a secret password              |
 
-
+- Check users in running configuration:
+ ```cisco
+  Switch> enable
+  Switch# show running-config
+ ```
+- Result :  
+```cisco
+  Switch# show running-config
+  ...
+  username parsa secret 5 $1$azVP$APCQAdM.O6BqTkXAgPGXB0
+  username yazdan secret 5 $1$hKXA$T8bJ4ZV4nC5lQRuxdXY5v.
+  
+  line con 0
+   login local
+  ...
+```
