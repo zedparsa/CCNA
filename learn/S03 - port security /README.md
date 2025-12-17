@@ -259,7 +259,14 @@ Router(config)# line vty 0 15
 Router(config-line)# login local
 Router(config-line)# transport input telnet
 Router(config-line)# end
-```  
+```
+
+| Command              | Description                         |
+|----------------------|-------------------------------------|
+| `line vty 0 15`      | Enters virtual terminal (remote access) configuration mode   |
+| `login local`                | Forces Telnet to use local usernames and passwords |
+| `transport input telnet`         | Allows Telnet connections on VTY lines        |
+
 - Why this configuration is needed:  
 > Telnet requires user authentication to prevent unauthorized access.  
 > Local authentication allows the device to prompt for a username and password.
