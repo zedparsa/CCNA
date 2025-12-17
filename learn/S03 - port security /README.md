@@ -298,3 +298,82 @@ Router>
 - Telnet should be used only for labs and learning
 - In real networks, SSH must always be used instead
 ---
+
+### 📖 Part 3.2 — [ SSH ]:
+
+**📝 Summary** :  
+SSH (Secure Shell) provides secure remote access to network devices by encrypting all transmitted data, including usernames, passwords, and commands.  
+It is the recommended replacement for Telnet.
+
+**🎯 Objectives**:  
+- Understand why SSH is preferred over Telnet
+- Configure SSH on a Cisco device
+- Generate RSA keys required for SSH
+- Enable SSH version 2 only
+- Restrict remote access to SSH
+- Verify SSH connectivity
+
+**🧩 Topology**:
+- One PC
+- One Router or Switch
+- PC connected to the device over the network
+- IP addresses must already be configured on both sides
+
+**🛠️ Step-by-Step**:
+```cisco
+Router> enable
+Router# configure terminal
+Router(config)# hostname R1
+Router(config)# ip domain-name test.local
+Router(config)# crypto key generate rsa
+Router(config)# ip ssh version 2
+Router(config)# username admin secret 123456
+Router(config)# enable secret 123
+Router(config)# line vty 0 15
+Router(config-line)# login local
+Router(config-line)# transport input ssh
+Router(config-line)# end
+```
+
+| Command              | Description                         |
+|----------------------|-------------------------------------|
+| `hostname R1`      | Sets the device name (required for SSH key generation)  |
+| `ip domain-name test.local` | Sets the domain name used during RSA key generation |
+| `crypto key generate rsa`         | Generates RSA keys required for SSH encryption      |
+| `ip ssh version 2` | Forces the device to use only SSH version 2 |
+| `transport input ssh`         |   Allows only SSH connections on VTY lines        |
+
+- Why this configuration is needed:   
+> SSH requires a hostname and domain name to generate RSA keys used for encryption.  
+> Local users are required because SSH uses username-based authentication.  
+> Restricting VTY access to SSH prevents insecure protocols like Telnet.  
+
+**✅ Verification**:  
+- From the PC command prompt:
+```
+ssh -l admin 192.168.1.1
+```
+| Command              | Description                         |
+|----------------------|-------------------------------------|
+| `ssh -l admin 192.168.1.1`  | Connects to the device using SSH |
+
+- Enter the password when prompted:
+```
+Password: 123456
+```
+
+- If successful, you should see:
+```
+R1>
+```
+
+- Enter privileged mode:
+```
+R1> enable
+R1#
+```
+**⚠️ Note**:  
+- SSH encrypts all session data
+- SSH version 1 is insecure and must be disabled
+- RSA key size should be at least 768 bits (1024 recommended)
+- SSH should always be used instead of Telnet in real networks
