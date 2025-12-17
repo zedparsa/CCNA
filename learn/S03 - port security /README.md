@@ -179,8 +179,6 @@ Switch# write memory
 Using plain passwords (level 0) **is not secure**. Later, you will learn how to use hashed passwords for stronger security.
 
 ---
----
----
 ### 📖 Part 2.2 — Hash / Salted Password
 **📝 Summary**  
 Using plaintext passwords is weak. Cisco allows hashed passwords (Type 5/9) to store credentials more securely.
@@ -227,3 +225,66 @@ Switch(config-line)# end
    login local
   ...
 ```
+
+---
+---
+---
+
+## 📖 Part 3 — [ TelNet & SSH ]:
+
+### 📖 Part 3.1 — [ TelNet ]:
+
+**📝 Summary** :  
+Telnet provides remote access to network devices over an IP network, but it sends all data — including usernames and passwords — in plaintext, making it insecure.
+
+**🎯 Objectives**:  
+- Understand how Telnet remote access works
+- Configure Telnet access on a Cisco device
+- Use local authentication for Telnet
+- Verify Telnet connectivity
+- Recognize Telnet security weaknesses
+
+**🧩 Topology**:
+- One PC
+- One Router or Switch
+- PC connected to the device over the network
+- IP addresses must already be configured on both sides
+
+**🛠️ Step-by-Step**:
+```cisco
+Router> enable
+Router# configure terminal
+Router(config)# username admin password 123456
+Router(config)# line vty 0 15
+Router(config-line)# login local
+Router(config-line)# transport input telnet
+Router(config-line)# end
+```  
+- Why this configuration is needed:  
+> Telnet requires user authentication to prevent unauthorized access.  
+> Local authentication allows the device to prompt for a username and password.
+
+**✅ Verification**:  
+- From the PC command prompt:
+```
+telnet 192.168.1.1
+```
+
+- Login prompt:
+```
+Username: admin
+Password: 123456
+```
+
+- If successful, you should see:
+```
+Router>
+```
+
+**⚠️ Note**:  
+- Telnet does not encrypt data
+- Usernames and passwords are sent in clear text
+- Vulnerable to packet sniffing and man-in-the-middle attacks
+- Telnet should be used only for labs and learning
+- In real networks, SSH must always be used instead
+---
