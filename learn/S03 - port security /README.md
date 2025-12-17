@@ -276,6 +276,9 @@ Router(config-line)# end
 ```
 telnet 192.168.1.1
 ```
+| Command              | Description                         |
+|----------------------|-------------------------------------|
+| `telnet 192.168.1.1`      | Initiates a Telnet session to the device   |
 
 - Login prompt:
 ```
