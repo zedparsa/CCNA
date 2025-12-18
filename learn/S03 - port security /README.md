@@ -612,3 +612,59 @@ r1# show running-config | include banner
 ---
 ---
 ---
+
+## 📖 Part 6 — NTP (Network Time Protocol)
+
+
+### 📝 Summary:
+NTP (Network Time Protocol) is used to synchronize time across network devices.
+It operates using **UDP port 123** and distributes time through a **hierarchical stratum system**.
+Accurate time is essential for logging, security, troubleshooting, and network monitoring.
+
+
+### 🎯 Objectives:
+- Understand the purpose of NTP
+- Learn how the NTP stratum system works
+- Configure a Cisco device as an NTP client
+- Configure a Cisco device as an NTP master
+- Verify NTP synchronization status
+
+### 🧩 Topology:
+- One Router (or Switch)
+- Optional external NTP server (Internet-based)
+- Network connectivity available
+
+Example:
+- External NTP Server: Public Stratum 1 or 2 server
+- Internal Devices: NTP clients
+
+
+### 🛠️ Step-by-Step:
+
+#### 🔹 NTP Stratum Concept (Overview)
+
+Stratum in NTP represents how close a device is to the original reference clock.
+
+- **Stratum 0**  
+  Reference clocks such as atomic clocks or GPS  
+  Do not directly participate in NTP
+
+- **Stratum 1**  
+  Servers directly connected to Stratum 0 devices
+
+- **Stratum 2–15**  
+  Servers and clients that obtain time from lower-stratum servers
+
+- **Stratum 16**  
+  Indicates the device is **unsynchronized** and time should not be trusted
+
+Lower stratum numbers indicate **higher accuracy**.
+
+---
+
+#### 🔹 Step 1 — Configure NTP Client (Using External NTP Server)
+```cisco
+Router> enable
+Router# configure terminal
+Router(config)# ntp server <ip-address>
+```
