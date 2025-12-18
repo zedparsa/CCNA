@@ -435,6 +435,10 @@ r1(config)# line vty 0 4
 r1(config-line)# login local
 r1(config-line)# exit
 ```
+| Command | Description |
+|--------|-------------|
+| `line vty 0 4` | Enters VTY (remote access) line configuration mode |
+
 Why this is needed:
 > SSH and local authentication must be functional before applying AAA      
 > so we can still access the device if AAA fails.
