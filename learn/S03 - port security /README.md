@@ -588,7 +588,7 @@ Why this is needed:
 >  The MOTD banner is shown before login and is the most visible banner.  
 > It is commonly required for security policies and legal compliance.
 
-✅ Verification:
+### ✅ Verification:
 
 1. Exit the current session.
 2. Reconnect to the device using console, Telnet, or SSH.
@@ -601,14 +601,14 @@ Optional verification:
 ```
 r1# show running-config | include banner
 ```
-⚠️ Note:
 
-The delimiter can be any character, but it must be the same at the start and end
+### ⚠️ Note:  
+- The delimiter can be any character, but it must be the same at the start and end  
+- The delimiter character must not appear inside the message  
+- MOTD is the most important banner and commonly required in real networks  
+- Banners do not provide security by themselves, but support legal and policy enforcement  
+- Incorrect banner configuration can confuse users or violate compliance requirements
 
-The delimiter character must not appear inside the message
-
-MOTD is the most important banner and commonly required in real networks
-
-Banners do not provide security by themselves, but support legal and policy enforcement
-
-Incorrect banner configuration can confuse users or violate compliance requirements
+---
+---
+---
