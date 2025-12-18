@@ -382,3 +382,58 @@ R1#
 ---
 ---
 ---
+
+## 📖 Part — AAA (Authentication, Authorization, Accounting)
+
+---
+
+### 📝 Summary:
+AAA is a security framework used to control access to network devices and services.
+It defines **who** can access the network, **what** they are allowed to do, and **what actions** they performed.
+Cisco devices implement AAA using external servers such as RADIUS or TACACS+.
+
+---
+
+### 🎯 Objectives:
+- Understand the AAA security model
+- Learn the difference between Authentication, Authorization, and Accounting
+- Understand the role of RADIUS and TACACS+
+- Configure basic AAA authentication using a RADIUS server
+- Apply AAA authentication to remote (VTY) access
+- Verify AAA-based login using SSH
+
+---
+
+### 🧩 Topology:
+- One Router (Cisco IOS)
+- One PC or Laptop (SSH client)
+- One AAA Server (RADIUS server)
+- Router and RADIUS server in the same network
+- IP connectivity verified
+
+Example:
+- Router: `192.168.1.1`
+- RADIUS Server: `192.168.1.2`
+
+---
+
+### 🛠️ Step-by-Step:
+
+#### 🔹 Background Configuration (SSH Access)
+```cisco
+Router> enable
+Router# configure terminal
+Router(config)# hostname r1
+r1(config)# ip domain-name test.local
+r1(config)# crypto key generate rsa
+r1(config)# ip ssh version 2
+r1(config)# username admin secret 123456
+r1(config)# enable secret 123
+r1(config)# interface g0/0/0
+r1(config-if)# ip address 192.168.1.1 255.255.255.0
+r1(config-if)# no shutdown
+r1(config-if)# exit
+r1(config)# line vty 0 4
+r1(config-line)# login local
+r1(config-line)# exit
+```
