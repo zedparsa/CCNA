@@ -377,3 +377,8 @@ R1#
 - SSH version 1 is insecure and must be disabled
 - RSA key size should be at least 768 bits (1024 recommended)
 - SSH should always be used instead of Telnet in real networks
+
+
+---
+---
+---
