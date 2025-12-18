@@ -497,7 +497,7 @@ r1(config-line)# exit
 ssh -l admin 192.168.1.1
 ```
 
-If RADIUS is reachable ---> Authentication is handled by the RADIUS server
+If RADIUS is reachable ---> Authentication is handled by the RADIUS server  
 If RADIUS is unreachable ---> Router falls back to local authentication
 
 - Check AAA status
