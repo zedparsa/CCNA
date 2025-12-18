@@ -443,3 +443,48 @@ Why this is needed:
 > SSH and local authentication must be functional before applying AAA      
 > so we can still access the device if AAA fails.
 
+🔹 **Step 1** — **Enable AAA**
+r1(config)# aaa new-model
+
+| Command | Description |
+|--------|-------------|
+| `aaa new-model	` | Enables the AAA framework on the device |
+
+🔹 **Step 2** — **Configure RADIUS Server**
+```
+r1(config)# radius server myserv
+r1(config-radius-server)# address ipv4 192.168.1.2
+r1(config-radius-server)# key cisco123
+r1(config-radius-server)# exit
+```
+
+| Command | Description |
+|--------|-------------|
+| `radius server myserv` |	Creates a RADIUS server profile |
+| `address ipv4 192.168.1.2` |	Specifies the RADIUS server IP address |
+| `key cisco123`	| Shared secret between router and RADIUS server |
+
+🔹 **Step 3** — **Configure AAA Authentication Methods**
+```
+r1(config)# aaa authentication enable default group radius local
+r1(config)# aaa authentication login myremote group radius local
+```
+| Command | Description |
+|--------|-------------|
+| `aaa authentication enable default group radius local` |	Uses RADIUS for enable mode, with local fallback |
+| `aaa authentication login myremote group radius local` |	Creates a login authentication method list |
+
+Why this is needed:
+> The router first tries RADIUS authentication
+> If the RADIUS server is unavailable, it falls back to local users
+
+🔹 **Step 4** — **Apply AAA to VTY Lines**
+```
+r1(config)# line vty 0 4
+r1(config-line)# login authentication myremote
+r1(config-line)# exit
+```
+| Command | Description |
+|--------|-------------|
+| `login authentication myremote` |	Applies AAA login authentication to remote access | 
+
