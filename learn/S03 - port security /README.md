@@ -230,9 +230,9 @@ Switch(config-line)# end
 ---
 ---
 
-## 📖 Part 3 — [ TelNet & SSH ]:
+## 📖 Part 3 — TelNet & SSH :
 
-### 📖 Part 3.1 — [ TelNet ]:
+### 📖 Part 3.1 — TelNet :
 
 **📝 Summary** :  
 Telnet provides remote access to network devices over an IP network, but it sends all data — including usernames and passwords — in plaintext, making it insecure.
@@ -299,7 +299,7 @@ Router>
 - In real networks, SSH must always be used instead
 ---
 
-### 📖 Part 3.2 — [ SSH ]:
+### 📖 Part 3.2 — SSH :
 
 **📝 Summary** :  
 SSH (Secure Shell) provides secure remote access to network devices by encrypting all transmitted data, including usernames, passwords, and commands.  
@@ -383,12 +383,10 @@ R1#
 ---
 ---
 
-## 📖 Part — AAA (Authentication, Authorization, Accounting)
-
----
+## 📖 Part 4 — AAA 
 
 ### 📝 Summary:
-AAA is a security framework used to control access to network devices and services.
+AAA [ Authentication, Authorization, Accounting ] is a security framework used to control access to network devices and services.
 It defines **who** can access the network, **what** they are allowed to do, and **what actions** they performed.
 Cisco devices implement AAA using external servers such as RADIUS or TACACS+.
 
