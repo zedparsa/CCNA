@@ -687,7 +687,7 @@ Router(config)# ntp master
 | `ntp master` |	Sets the device as the NTP master for the network |
 
 Why this is needed:  
-> This command makes the device act as the NTP master for other network devices.
+> This command makes the device act as the NTP master for other network devices.  
 > It is commonly used when:  
 > - Internet access is unavailable  
 > - A centralized internal time source is required
