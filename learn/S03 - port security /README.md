@@ -613,7 +613,7 @@ r1# show running-config | include banner
 ---
 ---
 
-## 📖 Part 6 — NTP (Network Time Protocol)
+## 📖 Part 6 — NTP 
 
 
 ### 📝 Summary:
@@ -660,7 +660,6 @@ Stratum in NTP represents how close a device is to the original reference clock.
 
 Lower stratum numbers indicate **higher accuracy**.
 
----
 
 #### 🔹 Step 1 — Configure NTP Client (Using External NTP Server)
 ```cisco
@@ -668,3 +667,59 @@ Router> enable
 Router# configure terminal
 Router(config)# ntp server <ip-address>
 ```
+
+| Command | Description |
+|--------|-------------|
+| `ntp server <ip-address>` | 	Configures the device to synchronize time with an external NTP server |
+
+Why this is needed:
+> This command configures the router to synchronize its clock with an external NTP server.  
+> The server is usually a public Stratum 1 or Stratum 2 server available on the Internet.
+
+#### 🔹 Step 2 — Configure NTP Master (Internal Time Source)
+
+```
+Router(config)# ntp master
+```
+
+| Command | Description |
+|--------|-------------|
+| `ntp master` |	Sets the device as the NTP master for the network |
+
+Why this is needed:  
+> This command makes the device act as the NTP master for other network devices.
+> It is commonly used when:  
+> - Internet access is unavailable  
+> - A centralized internal time source is required
+
+
+By default, the device becomes a Stratum 8 NTP server.
+
+### ✅ Verification:
+
+Check NTP synchronization status:
+```
+Router# show ntp status
+```
+
+Check NTP associations:
+```
+Router# show ntp associations
+```
+| Command | Description |
+|--------|-------------|
+| `show ntp status`	| Displays NTP synchronization state and stratum |
+| `show ntp associations` |	Shows configured NTP servers and relationships |
+
+### ⚠️ Note:
+
+- NTP uses UDP port 123  
+- Devices adjust time gradually to avoid sudden jumps  
+- Lower stratum means higher accuracy  
+- ntp master is suitable for small or isolated networks  
+- For enterprise networks, use external or centralized NTP servers  
+- Incorrect system time can cause issues with logs, certificates, and security protocols
+
+---
+---
+---
