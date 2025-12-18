@@ -444,7 +444,9 @@ Why this is needed:
 > so we can still access the device if AAA fails.
 
 🔹 **Step 1** — **Enable AAA**
+```
 r1(config)# aaa new-model
+```
 
 | Command | Description |
 |--------|-------------|
@@ -488,3 +490,29 @@ r1(config-line)# exit
 |--------|-------------|
 | `login authentication myremote` |	Applies AAA login authentication to remote access | 
 
+### ✅ Verification:
+
+- Connect to the router using SSH
+```
+ssh -l admin 192.168.1.1
+```
+
+If RADIUS is reachable ---> Authentication is handled by the RADIUS server
+If RADIUS is unreachable ---> Router falls back to local authentication
+
+- Check AAA status
+```
+r1# show running-config | section aaa
+```
+
+### ⚠️ Note:
+- AAA must be enabled carefully — misconfiguration can lock you out
+- Always configure local users before enabling AAA
+- RADIUS is commonly used for end-user access (VPN, Wi-Fi)
+- TACACS+ is preferred for administrator access on Cisco devices
+- Cisco Identity Services Engine (ISE) is Cisco’s enterprise AAA server
+- AAA separates Authentication, Authorization, and Accounting for better security and control
+
+---
+---
+---
