@@ -477,7 +477,7 @@ r1(config)# aaa authentication login myremote group radius local
 | `aaa authentication login myremote group radius local` |	Creates a login authentication method list |
 
 Why this is needed:
-> The router first tries RADIUS authentication
+> The router first tries RADIUS authentication  
 > If the RADIUS server is unavailable, it falls back to local users
 
 🔹 **Step 4** — **Apply AAA to VTY Lines**
@@ -497,8 +497,8 @@ r1(config-line)# exit
 ssh -l admin 192.168.1.1
 ```
 
-If RADIUS is reachable ---> Authentication is handled by the RADIUS server  
-If RADIUS is unreachable ---> Router falls back to local authentication
+>  If RADIUS is reachable ---> Authentication is handled by the RADIUS server  
+> If RADIUS is unreachable ---> Router falls back to local authentication
 
 - Check AAA status
 ```
