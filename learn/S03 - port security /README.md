@@ -390,8 +390,6 @@ AAA [ Authentication, Authorization, Accounting ] is a security framework used t
 It defines **who** can access the network, **what** they are allowed to do, and **what actions** they performed.
 Cisco devices implement AAA using external servers such as RADIUS or TACACS+.
 
----
-
 ### 🎯 Objectives:
 - Understand the AAA security model
 - Learn the difference between Authentication, Authorization, and Accounting
@@ -400,7 +398,6 @@ Cisco devices implement AAA using external servers such as RADIUS or TACACS+.
 - Apply AAA authentication to remote (VTY) access
 - Verify AAA-based login using SSH
 
----
 
 ### 🧩 Topology:
 - One Router (Cisco IOS)
@@ -412,8 +409,6 @@ Cisco devices implement AAA using external servers such as RADIUS or TACACS+.
 Example:
 - Router: `192.168.1.1`
 - RADIUS Server: `192.168.1.2`
-
----
 
 ### 🛠️ Step-by-Step:
 
@@ -516,3 +511,55 @@ r1# show running-config | section aaa
 ---
 ---
 ---
+
+## 📖 Part 5 — Cisco IOS Banners
+
+### 📝 Summary:
+Cisco IOS banners are used to display messages to users when they access a network device.
+They are commonly used for **security warnings**, **legal notices**, and **informational messages**.
+Different banner types are shown at different stages of the login process.
+
+
+### 🎯 Objectives:
+- Understand the purpose of Cisco IOS banners
+- Learn the different types of banners
+- Configure MOTD and Login banners
+- Identify when each banner is displayed
+- Recognize the importance of banners in security and compliance
+
+
+### 🧩 Topology:
+- One Router or Switch
+- Local or remote access (Console, Telnet, or SSH)
+- No specific network configuration required
+
+
+### 🛠️ Step-by-Step:
+
+#### 🔹 Banner Types Overview
+
+Cisco IOS supports **four main banner types**:
+
+- **MOTD (Message of the Day)**  
+  Displayed **before login**  
+  Most important and commonly used banner  
+  Typically used for security and legal warnings
+
+- **Login Banner**  
+  Displayed **before entering username and password**
+
+- **Exec Banner**  
+  Displayed **after a successful login**
+
+- **Incoming Banner**  
+  Displayed for incoming connections (rarely used)
+
+
+#### 🔹 Step 1 — Configure Login Banner
+```cisco
+r1> enable
+r1# configure terminal
+r1(config)# banner login @
+Authorized users only!
+@
+```
