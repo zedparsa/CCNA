@@ -536,23 +536,21 @@ Different banner types are shown at different stages of the login process.
 
 ### 🛠️ Step-by-Step:
 
-#### 🔹 Banner Types Overview
+#### 🔹Banner Types Overview
 
-Cisco IOS supports **four main banner types**:
+- Cisco IOS supports **four main banner types**:
 
-- **MOTD (Message of the Day)**  
+> - **MOTD (Message of the Day)**  
   Displayed **before login**  
   Most important and commonly used banner  
-  Typically used for security and legal warnings
-
-- **Login Banner**  
-  Displayed **before entering username and password**
-
-- **Exec Banner**  
-  Displayed **after a successful login**
-
-- **Incoming Banner**  
+  Typically used for security and legal warnings  
+> - **Login Banner**  
+  Displayed **before entering username and password**  
+> - **Exec Banner**  
+  Displayed **after a successful login**  
+> - **Incoming Banner**  
   Displayed for incoming connections (rarely used)
+
 
 
 #### 🔹 Step 1 — Configure Login Banner
@@ -563,3 +561,54 @@ r1(config)# banner login @
 Authorized users only!
 @
 ```
+
+| Command | Description |
+|--------|-------------|
+| `banner login @` |	Defines the start delimiter for the login banner |
+| `Authorized users only!` |	Message displayed to users |
+| `@` |	End delimiter |  
+
+Why this is needed:  
+> The login banner warns users before authentication, often used for legal notice or access restrictions.
+
+#### 🔹 Step 2 — Configure MOTD Banner
+```
+r1> enable
+r1# configure terminal
+r1(config)# banner motd @
+Welcome!
+@
+```
+
+| Command | Description |
+|--------|-------------|
+| `banner motd @` |	Defines the start delimiter for the MOTD banner |
+
+Why this is needed:
+>  The MOTD banner is shown before login and is the most visible banner.  
+> It is commonly required for security policies and legal compliance.
+
+✅ Verification:
+
+1. Exit the current session.
+2. Reconnect to the device using console, Telnet, or SSH.
+3. Observe the displayed banners:  
+> MOTD banner appears first  
+> Login banner appears before authentication  
+> Exec banner (if configured) appears after login
+
+Optional verification:
+```
+r1# show running-config | include banner
+```
+⚠️ Note:
+
+The delimiter can be any character, but it must be the same at the start and end
+
+The delimiter character must not appear inside the message
+
+MOTD is the most important banner and commonly required in real networks
+
+Banners do not provide security by themselves, but support legal and policy enforcement
+
+Incorrect banner configuration can confuse users or violate compliance requirements
