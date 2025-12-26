@@ -5,6 +5,11 @@ Practice securing Cisco device management access in Packet Tracer: banners, Teln
 All credentials, IPs, and keys in this lab are for learning purposes only. Do not reuse them in real networks.
 
 ### 🧩 Topology
+
+<p align="center">
+  <img src="https://github.com/zedparsa/CCNA/blob/main/labs/port%20security/portSecurity.png?raw=true" alt="Port Security Topology" />
+</p>
+
 - 1x Router: `R1`
 - 1x Switch: `SW1` (2960)
 - 1x Laptop: `Laptop0` (client)
