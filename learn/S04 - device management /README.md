@@ -44,7 +44,7 @@ Important correction:
    - Packet Tracer: usually a “Break” button/option in the terminal window
    - Real terminal apps: may be Ctrl+Break, Ctrl+Fn+B, etc.
 4. You should land in ROMMON prompt, often like:
-   - rommon 1 >
+   - `rommon 1 >`
 
 #### 2) Set the recovery configuration register and boot
 ```
@@ -55,7 +55,7 @@ rommon 2 > reset
 
 #### 3) Boot IOS without startup-config
 After IOS loads, you may see the initial configuration dialog:
-- Answer: no
+- `Answer: no`
 
 Now you can enter privileged mode (because the startup-config was ignored):
 ```
