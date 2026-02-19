@@ -42,7 +42,7 @@ Important correction:
 2. Power on the router.
 3. During early boot, send the **Break** sequence (varies by terminal):
    - Packet Tracer: usually a “Break” button/option in the terminal window
-   - Real terminal apps: may be Ctrl+Break, Ctrl+Fn+B, etc.
+   - Real terminal apps: may be `Ctrl+Break` , `Ctrl+Fn+B `, etc.
 4. You should land in ROMMON prompt, often like:
    - `rommon 1 >`
 
