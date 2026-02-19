@@ -185,3 +185,155 @@ dir flash:
 show running-config | include username|enable secret  
 show running-config | section line  
 ```
+---
+---
+---
+## 📖 Part 2 — IOS (OS) Recovery via TFTP (ROMMON)
+
+### 📝 Summary:
+IOS (operating system) recovery is used when a router cannot boot because the IOS image is missing, corrupted, or the device is stuck in ROMMON. A common recovery method is downloading an IOS image from a TFTP server over the network, then booting from that image (and often saving it to flash).
+
+This guide covers:
+- Preparing the Layer 2/Layer 3 basics so the router can reach the TFTP server
+- Using ROMMON environment variables for TFTP download
+- Running the ROMMON TFTP download process safely
+
+### 🎯 Objectives:
+- Understand why IOS recovery is typically a physical-access procedure (console + ROMMON).
+- Build a basic recovery topology with a switch, a TFTP server, and a router in ROMMON.
+- Configure the switch management SVI so you can test connectivity and manage the lab.
+- Explain why PortFast can help in recovery labs.
+- Set ROMMON IP parameters correctly (router IP, mask, gateway if needed, TFTP server IP, filename).
+- Download the IOS image using tftpdnld and boot the router.
+
+### 🧩 Topology:
+- 1x Router in ROMMON (IOS missing/corrupted)
+- 1x Switch (all devices connected to the switch)
+- 1x Server (TFTP server)
+- 1x PC/Laptop (console/terminal access to the router)
+
+Example addressing (recommended to avoid IP conflicts):
+- Router (ROMMON IP_ADDRESS): 192.168.1.1/24
+- Switch (VLAN 1 SVI): 192.168.1.2/24
+- TFTP Server: 192.168.1.100/24
+- Default gateway: not required if everything is in the same /24
+
+### 🛠️ Step-by-Step:
+
+### 🔹 A) Prepare the Switch (basic management + faster link-up)
+
+#### 1) Configure VLAN 1 SVI (management IP)
+    Switch> enable
+    Switch# configure terminal
+    Switch(config)# interface vlan 1
+    Switch(config-if)# ip address 192.168.1.2 255.255.255.0
+    Switch(config-if)# no shutdown
+    Switch(config-if)# exit
+
+Optional (only if you want the switch to reach other networks):
+    Switch(config)# ip default-gateway 192.168.1.1
+
+#### 2) Enable PortFast on access ports connected to end devices
+Apply PortFast on ports that connect to the server/PC (and optionally to the router if you are sure there is no switching loop).
+
+Example:
+
+    Switch(config)# interface gigabitEthernet 0/1
+    Switch(config-if)# spanning-tree portfast
+    Switch(config-if)# exit
+
+Why PortFast?
+- Normal STP can delay a port from forwarding for roughly 30 seconds while it transitions states
+- In recovery labs, you want the link to start forwarding immediately so TFTP traffic can work right away
+- PortFast should be used on ports that connect to end devices, not on switch-to-switch links
+
+### 🔹 B) Prepare the TFTP Server
+On the server:
+- Set the IP address to 192.168.1.100/24
+- Enable the TFTP service
+- Place the IOS image file in the TFTP root directory (the filename must match exactly)
+
+### 🔹 C) Router IOS Recovery (ROMMON + TFTP)
+
+#### ✅ Concept
+In ROMMON, the router has no IOS, so you must provide temporary IP settings directly in ROMMON variables. The router will use these values to reach the TFTP server and download the IOS image.
+
+Important correction:
+- `IP_ADDRESS` must be the router interface IP address used for TFTP (not the switch SVI IP)
+- `DEFAULT_GATEWAY` is only needed if the TFTP server is in a different subnet
+
+#### 1) Enter ROMMON
+- Power cycle the router
+- Send Break during boot (or use Packet Tracer break option) to reach the ROMMON prompt
+
+You should see something like:
+```
+rommon 1 >
+```
+#### 2) Set ROMMON network parameters
+Example (same subnet, no gateway needed):
+
+    rommon 1 > IP_ADDRESS=192.168.1.1
+    rommon 2 > IP_SUBNET_MASK=255.255.255.0
+    rommon 3 > TFTP_SERVER=192.168.1.100
+    rommon 4 > TFTP_FILE=c2900-universalk9-mz.SPA.155-3.M4a.bin
+
+If your TFTP server is in another subnet, add a gateway:
+
+    rommon X > DEFAULT_GATEWAY=192.168.1.254
+
+To verify what you set:
+
+    rommon X > set
+
+#### 3) Run the TFTP download
+Start the download process:
+
+    rommon X > tftpdnld
+
+Note:
+- On many platforms, tftpdnld can overwrite flash contents and then boot from the new image
+- Read the ROMMON prompt carefully and confirm only if you are sure the filename and server IP are correct
+
+#### 4) Boot IOS and continue normal configuration
+After a successful download and boot:
+- Verify the image and interfaces
+- Save configuration as needed
+
+---
+
+### 🧾 Command Caption Table
+
+| Command / Setting | Where | Purpose |
+|---|---|---|
+| `interface vlan 1`, `ip address`, `no shutdown` | Switch IOS | Give the switch a management IP for testing/management |
+| `spanning-tree portfast` | Switch IOS | Make the port forward immediately, avoiding STP startup delay |
+| `IP_ADDRESS` | Router ROMMON | Sets the router IP used for the TFTP recovery |
+| `IP_SUBNET_MASK` | Router ROMMON | Sets the subnet mask for the router ROMMON interface |
+| `DEFAULT_GATEWAY` | Router ROMMON | Sets gateway for reaching a TFTP server in another subnet (optional) |
+| `TFTP_SERVER` | Router ROMMON | Sets the TFTP server IP address |
+| `TFTP_FILE` | Router ROMMON | Sets the IOS image filename to download (must match exactly) |
+| `set` | Router ROMMON | Displays current ROMMON environment variables |
+| `tftpdnld` | Router ROMMON | Downloads the IOS image from TFTP (often writes to flash and boots) |
+
+### ✅ Verification:
+Switch:
+
+    show ip interface brief
+    ping 192.168.1.100
+
+Router (after IOS boots):
+
+    show version
+    show ip interface brief
+    dir flash:
+
+End-to-end:
+- Confirm the router successfully boots into IOS (not ROMMON)
+- Confirm you can reach the router via console and configure it normally
+
+### ⚠️ Note:
+- IOS recovery requires physical access because ROMMON access typically requires console + reboot/break.
+- Keep all recovery devices in the same subnet to avoid needing a gateway during ROMMON recovery.
+- If tftpdnld fails, the most common causes are wrong IP settings, wrong filename, TFTP service disabled, or the switch port not forwarding yet (PortFast helps).
+- Always double-check the IOS filename spelling and case, because mismatches cause silent failures.
