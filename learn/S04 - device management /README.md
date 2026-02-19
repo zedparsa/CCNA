@@ -124,7 +124,7 @@ switch: boot
 ```
 #### 3) Boot without startup-config
 The switch boots with a “clean” configuration. You may see the setup dialog:
-- Answer: no
+- `Answer: no`
 
 Enter privileged mode:
 ```
@@ -163,14 +163,14 @@ Switch# delete flash:config.text.old
 
 | Command | Where | Purpose |
 |---|---|---|
-| confreg 0x2142 | Router ROMMON | Boot IOS but ignore startup-config (recovery mode) |
-| reset | Router ROMMON | Reboot device using the new register value |
-| copy startup-config running-config | Router IOS | Restore original configuration into RAM |
-| config-register 0x2102 | Router IOS | Return to normal boot behavior |
-| flash_init | Switch boot loader | Initialize flash filesystem |
-| rename flash:config.text flash:config.text.old | Switch boot loader | Prevent loading startup-config by hiding the file |
-| copy flash:config.text.old running-config | Switch IOS | Load old config into RAM so you don’t lose settings |
-| write memory | Router/Switch IOS | Save running-config as startup-config |
+| `confreg 0x2142` | Router ROMMON | Boot IOS but ignore startup-config (recovery mode) |
+| `reset` | Router ROMMON | Reboot device using the new register value |
+| `copy startup-config running-config` | Router IOS | Restore original configuration into RAM |
+| `config-register 0x2102` | Router IOS | Return to normal boot behavior |
+| `flash_init` | Switch boot loader | Initialize flash filesystem |
+| `rename flash:config.text flash:config.text.old` | Switch boot loader | Prevent loading startup-config by hiding the file |
+| `copy flash:config.text.old running-config` | Switch IOS | Load old config into RAM so you don’t lose settings |
+| `write memory` | Router/Switch IOS | Save running-config as startup-config |
 
 ### ✅ Verification:
 Router:
