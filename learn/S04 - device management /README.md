@@ -1,4 +1,4 @@
-## 📖 Part — Password Recovery (Router & Switch)
+## 📖 Part 1 — Password Recovery (Router & Switch)
 
 ### 📝 Summary:
 Password recovery on Cisco devices is a **physical-access** procedure.  
