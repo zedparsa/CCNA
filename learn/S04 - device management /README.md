@@ -213,9 +213,9 @@ This guide covers:
 - 1x PC/Laptop (console/terminal access to the router)
 
 Example addressing (recommended to avoid IP conflicts):
-- Router (ROMMON IP_ADDRESS): 192.168.1.1/24
-- Switch (VLAN 1 SVI): 192.168.1.2/24
-- TFTP Server: 192.168.1.100/24
+- Router (ROMMON IP_ADDRESS): `192.168.1.1/24`
+- Switch (VLAN 1 SVI): `192.168.1.2/24`
+- TFTP Server: `192.168.1.100/24`
 - Default gateway: not required if everything is in the same /24
 
 ### 🛠️ Step-by-Step:
@@ -231,6 +231,7 @@ Example addressing (recommended to avoid IP conflicts):
     Switch(config-if)# exit
 
 Optional (only if you want the switch to reach other networks):
+
     Switch(config)# ip default-gateway 192.168.1.1
 
 #### 2) Enable PortFast on access ports connected to end devices
