@@ -88,7 +88,7 @@ That second lookup resolves the **exit interface**.
 
 Example logic:
 
-Destination → Next-hop → Exit interface
+`Destination → Next-hop → Exit interface`
 
 This additional lookup is why some engineers prefer specifying the exit interface in certain scenarios.
 
