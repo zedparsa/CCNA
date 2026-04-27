@@ -84,7 +84,6 @@ Example:
 
 A static route points to next-hop `10.1.1.2`, but the router does not yet know which interface leads there.  
 So the router searches its routing table again to find a route to `10.1.1.2`.
-
 That second lookup resolves the **exit interface**.
 
 Example logic:
@@ -129,7 +128,6 @@ Example:
 - `192.168.1.0/24`
 
 Traffic destined for `192.168.1.x` matches the **/24 route** because it has a longer prefix.
-
 This rule **always takes priority over Administrative Distance**.
 
 Routing decision order:
@@ -142,7 +140,6 @@ Routing decision order:
 ### Administrative Distance (AD)
 
 Administrative Distance indicates **how trustworthy a routing source is**.
-
 Lower AD values are preferred.
 
 | Source | AD |
@@ -215,7 +212,6 @@ After configuration, the routing table will display:
 ### Floating Static Route
 
 A **Floating Static Route** is a backup route that is installed only when the primary route fails.
-
 This is achieved by configuring a **higher Administrative Distance**.
 
 Example:
@@ -239,12 +235,10 @@ If the primary route disappears, the backup route becomes active.
 |---|---|---|
 | `ip route <dst> <mask> <nh> 200` | Router IOS (config mode) | Creates floating backup route |
 
----
 
 ### Load Balancing (Equal-Cost Paths)
 
 If a router learns **multiple routes with equal cost**, it can install multiple paths in the routing table.
-
 This is called **Equal-Cost Multi-Path (ECMP)**.
 
 Example scenario:
@@ -255,7 +249,6 @@ Two routes to the same network:
 - `via Router B`
 
 If both have the same metric and AD, the router may install both.
-
 Traffic will be distributed between them.
 
 #### Command Table
@@ -263,7 +256,6 @@ Traffic will be distributed between them.
 |---|---|---|
 | `show ip route` | Router IOS | Displays multiple equal-cost routes if present |
 
----
 
 ### ✅ Verification
 
@@ -280,14 +272,11 @@ Router# show ip interface brief
 | `show running-config \| include ip route` | Router IOS | Shows configured static routes |
 | `show ip interface brief` | Router IOS | Displays interface states and IP addresses |
 
----
 
 ### ⚠️ Note
 
 Static routes provide **predictable control** over traffic paths but do not adapt automatically to topology changes.
-
 In large networks, **dynamic routing protocols** (RIP, OSPF, EIGRP, BGP) are used to automatically learn and update routes.
-
 However, static routes remain important for:
 
 - `Default routes`
