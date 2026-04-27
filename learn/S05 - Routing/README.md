@@ -31,8 +31,6 @@ These commands display the routing table and show only static routes respectivel
 | `show ip route` | Router IOS | Displays the entire routing table and route sources |
 | `show ip route static` | Router IOS | Shows only static routes currently installed |
 
----
-
 ### Adding Static Routes
 
 ```cisco
@@ -55,7 +53,6 @@ Router(config)# ip route <destination-ip> <subnet-mask> <exit-interface>
 | `ip route <dest> <mask> <next-hop-ip>` | Router IOS (config mode) | Adds a static route using a next-hop address |
 | `ip route <dest> <mask> <interface>` | Router IOS (config mode) | Adds a static route using an exit interface |
 
----
 
 ### Longest Prefix Match (LPM)
 
@@ -69,7 +66,6 @@ Traffic for `192.168.1.x` → matches **/24** because 24-bit prefix is more spec
 
 This rule takes precedence over AD.
 
----
 
 ### Static Route with Administrative Distance (AD)
 
@@ -93,7 +89,6 @@ But if prefixes differ:
 | `ip route <dst> <mask> <nh/interface> <AD>` | Router IOS (config mode) | Creates a static route with custom AD |
 | `show running-config \| include ip route` | Router IOS | Displays configured static routes |
 
----
 
 ### ✅ Verification:
 
@@ -108,7 +103,11 @@ Router# show running-config | include ip route
 | `show ip route` | Router IOS | Verifies routes installed in the routing table |
 | `show running-config \| include ip route` | Router IOS | Shows static route configuration lines |
 
----
 
 ### ⚠️ Note:
 Static routes do not adapt to topology changes. If the next-hop becomes unreachable, the route remains in the table unless enhanced with tracking mechanisms (e.g., IP SLA + object tracking).
+
+---
+---
+---
+
