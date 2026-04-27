@@ -1,5 +1,5 @@
 
-## 📖 Part — Routing Fundamentals
+## 📖 Part 1 — Routing Fundamentals
 
 ### 📝 Summary:
 Routing is the process by which a router forwards packets toward their destinations based on information stored in its routing table. A router’s forwarding behavior depends entirely on the routes it knows. Static routes allow administrators to manually define paths, offering full control but requiring manual maintenance.
@@ -15,7 +15,6 @@ Routing is the process by which a router forwards packets toward their destinati
 Any two- or three-router linear topology is suitable for practicing static routing.  
 Example: R1 ↔ R2 ↔ R3
 
----
 
 ### 🛠️ Step-by-Step:
 
