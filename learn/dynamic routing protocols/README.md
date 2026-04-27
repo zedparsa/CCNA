@@ -70,36 +70,36 @@ A **loopback interface** is a software‑based virtual interface that is always 
 
 ### Configuration
 
-backtick cisco
+```cisco
 Router(config)# interface loopback <number>
 Router(config-if)# ip address <ip> <subnet-mask>
-backtick
+```
 
 ### Notes
 - Loopback interfaces are **up by default**.
 - You can shut them if needed:
 
-backtick cisco
+```cisco
 Router(config-if)# shutdown
-backtick
+```
 
 - They appear in `show ip interface brief`.
 
 ### Verification
 
-backtick cisco
+```cisco
 Router# show ip interface brief | exclude unassigned
-backtick
+```
 
 This displays all active interfaces, including loopbacks.
 
 #### Command Table
 | Command | Where | Purpose |
 |---|---|---|
-| interface loopback <num> | Router IOS (config) | Creates a loopback interface |
-| ip address <ip> <mask> | Router IOS (config-if) | Assigns IP to loopback |
-| shutdown | Router IOS (config-if) | Disables loopback manually |
-| show ip interface brief | Router IOS | Displays interface status |
+| `interface loopback <num>` | Router IOS (config) | Creates a loopback interface |
+| `ip address <ip> <mask>` | Router IOS (config-if) | Assigns IP to loopback |
+| `shutdown` | Router IOS (config-if) | Disables loopback manually |
+| `show ip interface brief` | Router IOS | Displays interface status |
 
 
 # 🔄 RIP Dynamic Routing
@@ -113,12 +113,12 @@ If hop count reaches 16 → network is **unreachable**.
 
 ## 🛠️ RIP v2 Configuration
 
-backtick cisco
+```cisco
 Router(config)# router rip
 Router(config-router)# version 2
 Router(config-router)# no auto-summary
 Router(config-router)# network <ip-address>
-backtick
+```
 
 ### Why version 2?
 - Supports subnet masks (classless)
@@ -135,9 +135,9 @@ backtick
 
 After RIP configuration, use:
 
-backtick cisco
+```cisco
 Router# show ip route
-backtick
+```
 
 Learned RIP routes begin with:
 
@@ -154,21 +154,21 @@ Interpretation:
 
 ## 🧪 Verification Commands
 
-backtick cisco
+```cisco
 Router# show ip protocols
 Router# show ip route rip
 Router# debug ip rip
-backtick
+```
 
 #### Command Table
 | Command | Where | Purpose |
 |---|---|---|
-| router rip | Router IOS | Enters RIP configuration mode |
-| version 2 | Router IOS (router-config) | Enables RIPv2 |
-| no auto-summary | Router IOS | Disables classful summarization |
-| network <ip> | Router IOS | Advertises network into RIP |
-| show ip protocols | Router IOS | Shows routing protocol settings |
-| show ip route rip | Router IOS | Displays RIP-learned routes |
+| `router rip` | Router IOS | Enters RIP configuration mode |
+| `version 2` | Router IOS (router-config) | Enables RIPv2 |
+| `no auto-summary` | Router IOS | Disables classful summarization |
+| `network <ip>` | Router IOS | Advertises network into RIP |
+| `show ip protocols` | Router IOS | Shows routing protocol settings |
+| `show ip route rip` | Router IOS | Displays RIP-learned routes |
 
 
 # 🧠 Theoretical Concepts
@@ -181,10 +181,10 @@ Dynamic routing protocols are divided into two major families:
 Used **inside** an autonomous system (enterprise networks).
 
 Examples:
-- RIP
-- OSPF
-- IS-IS
-- EIGRP
+- `RIP`
+- `OSPF`
+- `IS-IS`
+- `EIGRP`
 
 Characteristics:
 - Fast convergence (modern protocols)
