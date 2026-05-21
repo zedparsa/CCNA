@@ -139,17 +139,17 @@ Devices in different VLANs **cannot communicate directly** without Layer 3 routi
 
 ### Checking MAC Address Table
 
-cisco
+```cisco
 Switch# show mac address-table
-cisco
+```
 
 This command displays learned MAC addresses and the VLAN in which they were learned.
 
 ### Viewing VLAN Information
 
-cisco
+```cisco
 Switch# show vlan brief
-cisco
+```
 
 This command shows:
 - VLAN ID
@@ -164,36 +164,36 @@ By default, all switch ports belong to **VLAN 1**, which is the default VLAN.
 
 Main method:
 
-cisco
+```cisco
 Switch(config)# vlan 10
-cisco
+```
 
 The switch creates VLAN 10 and assigns a default name.
 
 ### Changing VLAN Name
 
-cisco
+```cisco
 Switch(config)# vlan 10
 Switch(config-vlan)# name HR
-cisco
+```
 
 This assigns a descriptive name to the VLAN.
 
 ### Assigning a VLAN to a Single Port
 
-cisco
+```cisco
 Switch(config)# interface fa0/1
 Switch(config-if)# switchport access vlan 10
-cisco
+```
 
 This assigns interface Fa0/1 to VLAN 10.
 
 ### Assigning VLAN to Multiple Ports
 
-cisco
+```cisco
 Switch(config)# interface range fa0/1 - 5
 Switch(config-if-range)# switchport access vlan 10
-cisco
+```
 
 This assigns interfaces Fa0/1 through Fa0/5 to VLAN 10.
 
@@ -201,10 +201,10 @@ This assigns interfaces Fa0/1 through Fa0/5 to VLAN 10.
 
 If you assign a port to a VLAN that does not yet exist:
 
-cisco
+```cisco
 Switch(config)# interface fa0/10
 Switch(config-if)# switchport access vlan 20
-cisco
+```
 
 The switch will **automatically create VLAN 20**.
 
@@ -212,23 +212,21 @@ The switch will **automatically create VLAN 20**.
 
 If you check the flash storage:
 
-cisco
+```cisco
 Switch# show flash:
-cisco
+```
 
-You will see a file named:
-
-vlan.dat
+You will see a file named: `vlan.dat`  
 
 This file stores the VLAN database of the switch.
 
 ### ✅ Verification:
 
-cisco
+```cisco
 Switch# show vlan brief
 Switch# show mac address-table
 Switch# show flash:
-cisco
+```
 
 These commands allow you to verify:
 - Existing VLANs
@@ -242,4 +240,3 @@ However, communication between different VLANs requires **Layer 3 routing**, usu
 
 - Router-on-a-Stick
 - Layer 3 Switch (SVI)
-`
