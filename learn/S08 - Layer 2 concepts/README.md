@@ -15,7 +15,6 @@ This model simplifies troubleshooting, improves fault isolation, and allows the 
 ### 🧩 Topology:
 Typical enterprise campus network containing access switches connected to distribution switches, which then connect to core switches that form the backbone of the network.
 
----
 
 ### 🛠️ Step-by-Step:
 
@@ -36,7 +35,6 @@ Responsibilities:
 - Port security
 - Basic switching operations
 
----
 
 **2️⃣ Distribution Layer (Aggregation Layer)**
 
@@ -48,7 +46,6 @@ Responsibilities:
 - Filtering and QoS policies
 - Route summarization
 
----
 
 **3️⃣ Core Layer**
 
@@ -60,7 +57,6 @@ Responsibilities:
 - Minimal latency
 - No heavy filtering or complex policies
 
----
 
 **4️⃣ Edge Layer**
 
@@ -72,7 +68,6 @@ Examples:
 - Firewalls
 - VPN gateways
 
----
 
 ### Collapsed Core Design
 
@@ -87,17 +82,12 @@ Advantages:
 - Simpler topology
 - Easier management
 
----
-
-### ✅ Verification:
-No specific IOS commands are required for verifying the architecture design itself, because this model represents a conceptual network structure rather than a specific configuration.
-
----
-
 ### ⚠️ Note:
 The hierarchical design greatly improves scalability.  
 Large enterprise networks almost always follow this model because it separates responsibilities between layers and prevents network complexity.
 
+---
+---
 ---
 
 ## 📖 Part 2 — VLAN (Virtual Local Area Network)
@@ -118,7 +108,6 @@ Instead of every device belonging to one large network, VLANs allow devices to b
 ### 🧩 Topology:
 One or more switches with multiple end devices connected to different VLANs (for example VLAN 10 for HR and VLAN 20 for IT).
 
----
 
 ### 🛠️ Step-by-Step:
 
@@ -147,7 +136,6 @@ Example:
 
 Devices in different VLANs **cannot communicate directly** without Layer 3 routing.
 
----
 
 ### Checking MAC Address Table
 
@@ -156,8 +144,6 @@ Switch# show mac address-table
 cisco
 
 This command displays learned MAC addresses and the VLAN in which they were learned.
-
----
 
 ### Viewing VLAN Information
 
@@ -173,7 +159,6 @@ This command shows:
 
 By default, all switch ports belong to **VLAN 1**, which is the default VLAN.
 
----
 
 ### Creating a VLAN
 
@@ -185,8 +170,6 @@ cisco
 
 The switch creates VLAN 10 and assigns a default name.
 
----
-
 ### Changing VLAN Name
 
 cisco
@@ -195,8 +178,6 @@ Switch(config-vlan)# name HR
 cisco
 
 This assigns a descriptive name to the VLAN.
-
----
 
 ### Assigning a VLAN to a Single Port
 
@@ -207,8 +188,6 @@ cisco
 
 This assigns interface Fa0/1 to VLAN 10.
 
----
-
 ### Assigning VLAN to Multiple Ports
 
 cisco
@@ -217,8 +196,6 @@ Switch(config-if-range)# switchport access vlan 10
 cisco
 
 This assigns interfaces Fa0/1 through Fa0/5 to VLAN 10.
-
----
 
 ### Automatic VLAN Creation
 
@@ -230,8 +207,6 @@ Switch(config-if)# switchport access vlan 20
 cisco
 
 The switch will **automatically create VLAN 20**.
-
----
 
 ### VLAN Database File
 
@@ -247,8 +222,6 @@ vlan.dat
 
 This file stores the VLAN database of the switch.
 
----
-
 ### ✅ Verification:
 
 cisco
@@ -261,8 +234,6 @@ These commands allow you to verify:
 - Existing VLANs
 - MAC address learning
 - VLAN database storage
-
----
 
 ### ⚠️ Note:
 
