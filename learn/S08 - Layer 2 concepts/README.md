@@ -240,3 +240,80 @@ However, communication between different VLANs requires **Layer 3 routing**, usu
 
 - Router-on-a-Stick
 - Layer 3 Switch (SVI)
+
+---
+
+## 📖 Part 3 — Trunking (802.1Q)
+
+### 📝 Summary:
+When you have multiple VLANs across multiple switches, you need a way for switches to distinguish which VLAN a frame belongs to.  
+A **Trunk** is a point-to-point link between two switches (or a switch and a router) that carries traffic for **multiple VLANs** simultaneously.  
+To differentiate between VLANs, switches use **Encapsulation** (adding a "tag" to the frame).
+
+### 🎯 Objectives:
+- Understand the necessity of Trunk links in multi-switch environments.
+- Learn the IEEE 802.1Q (Dot1Q) encapsulation standard.
+- Configure Trunk ports on Cisco switches.
+- Understand the role of Native VLAN.
+- Verify trunk configuration.
+
+### 🧩 Topology:
+Two switches (SW1 and SW2) connected via a single physical link. Both switches have multiple VLANs (10, 20) defined, and that single link must carry traffic for all those VLANs.
+
+### 🛠️ Step-by-Step:
+
+#### 1. Why Trunk?
+If you have VLAN 10 users in Building A and VLAN 10 users in Building B, you cannot use separate cables for every VLAN.  
+Trunking allows you to send traffic for all VLANs over **one single physical link** while keeping the traffic logically separated using tags.
+
+#### 2. Encapsulation (Dot1Q)
+When a frame leaves a switch via a trunk port, the switch inserts a 4-byte **VLAN Tag** into the Ethernet header.  
+The industry standard for this is **IEEE 802.1Q (Dot1Q)**.
+
+#### 3. Configuration
+On most modern Cisco switches, you must explicitly set the encapsulation type before enabling trunk mode.
+
+```cisco
+Switch(config)# interface gig0/1
+Switch(config-if)# switchport trunk encapsulation dot1q
+Switch(config-if)# switchport mode trunk
+```
+
+**Crucial Point:** Trunking must be configured on **both ends** of the link between the two switches.
+
+### 🔍 Native VLAN
+In Dot1Q, there is a special VLAN called the **Native VLAN** (default is VLAN 1).  
+Traffic belonging to the Native VLAN is **not tagged** when it crosses the trunk.  
+
+- If a switch receives an untagged frame on a trunk, it automatically assumes it belongs to the Native VLAN.
+- For security reasons, it is a best practice to change the Native VLAN from 1 to an unused VLAN ID.
+
+### ✅ Verification:
+
+**1. Viewing VLANs**
+Note that trunk ports **do not appear** in `show vlan brief`.
+
+**2. Viewing Trunk Status**
+```cisco
+Switch# show interfaces trunk
+```
+
+This command displays:
+- The trunk interface
+- Encapsulation type (802.1q)
+- Status (trunking)
+- Native VLAN
+- VLANs allowed on the trunk
+
+### ⚠️ Note:
+
+**1. Trunking Modes:**
+- `switchport mode trunk`: Forces the port to be a trunk.
+- `switchport mode access`: Forces the port to be an access port.
+- `switchport nonegotiate`: Disables Dynamic Trunking Protocol (DTP) packets (recommended for security).
+
+**2. Security Tip:**
+- **Never use VLAN 1** as your data VLAN or Native VLAN.
+- If the Native VLAN on one side of the trunk is different from the other side, you will get a **VLAN Mismatch Error**, causing traffic issues.
+
+
