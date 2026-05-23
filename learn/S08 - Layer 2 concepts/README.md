@@ -242,6 +242,8 @@ However, communication between different VLANs requires **Layer 3 routing**, usu
 - Layer 3 Switch (SVI)
 
 ---
+---
+---
 
 ## 📖 Part 3 — Trunking (802.1Q)
 
