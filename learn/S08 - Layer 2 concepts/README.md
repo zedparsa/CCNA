@@ -318,4 +318,96 @@ This command displays:
 - **Never use VLAN 1** as your data VLAN or Native VLAN.
 - If the Native VLAN on one side of the trunk is different from the other side, you will get a **VLAN Mismatch Error**, causing traffic issues.
 
+---
+---
+---
+
+## 📖 Part 4 — Dynamic Trunking Protocol (DTP)
+
+### 📝 Summary:
+**DTP (Dynamic Trunking Protocol)** is a Cisco proprietary protocol that allows two switches to negotiate whether a link should become an **Access** port or a **Trunk** port automatically.  
+While it simplifies configuration, it is often disabled in high-security environments to prevent "VLAN Hopping" attacks.
+
+### 🎯 Objectives:
+- Understand DTP operational modes.
+- Analyze the DTP negotiation matrix.
+- Learn how to verify the administrative vs. operational state of a port.
+- Implement security best practices by disabling DTP.
+
+### 🧩 Topology:
+Two switches (SW-A and SW-B) connected directly. We will observe how changing the DTP mode on one side affects the operational state of the link.
+
+
+### 🛠️ Step-by-Step:
+
+#### 1. DTP Negotiable Modes
+There are four primary modes for a switch port:
+
+| Mode | Description |
+| :--- | :--- |
+| **Access** | Forces the port to be a permanent non-trunk port. |
+| **Trunk** | Forces the port to be a permanent trunk and negotiates to convert the neighbor. |
+| **Dynamic Auto** | Default on most switches. It waits for the other side to "ask" to become a trunk. |
+| **Dynamic Desirable** | Actively asks the other side to become a trunk. |
+
+
+#### 2. The DTP Negotiation Matrix (Analysis of Screenshot)
+This table explains what the **Operational Mode** of the link will be based on the **Administrative Mode** of both sides:
+
+| | Dynamic Auto | Dynamic Desirable | Trunk | Access |
+| :--- | :---: | :---: | :---: | :---: |
+| **Dynamic Auto** | Access | **Trunk** | **Trunk** | Access |
+| **Dynamic Desirable** | **Trunk** | **Trunk** | **Trunk** | Access |
+| **Trunk** | **Trunk** | **Trunk** | **Trunk** | **Conflict/Error** |
+| **Access** | Access | Access | **Conflict/Error** | Access |
+
+**Key Takeaways from the Matrix:**
+- If both sides are **Dynamic Auto**, the link becomes **Access** (because neither side starts the negotiation).
+- **Dynamic Desirable** is "aggressive"; if the other side is Auto, Desirable, or Trunk, the link becomes a **Trunk**.
+- **Access** always wins unless the other side is forced to **Trunk** (which creates a configuration mismatch).
+
+
+#### 3. Configuration Commands
+
+**Setting a port to Actively Negotiate:**
+backtick cisco
+Switch(config)# interface gig0/1
+Switch(config-if)# switchport mode dynamic desirable
+backtick
+
+**Disabling DTP (The Professional/Secure Way):**
+To prevent a port from sending DTP frames, use the `nonegotiate` command. This is only possible if the port is manually set to Trunk or Access.
+backtick cisco
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# switchport nonegotiate
+backtick
+
+
+### ✅ Verification:
+
+**1. Detailed Switchport Status:**
+This is the most important command to see what is happening "under the hood".
+backtick cisco
+Switch# show interface fa0/1 switchport
+backtick
+
+Look for these lines in the output:
+- **Administrative Mode:** What you configured (e.g., dynamic auto).
+- **Operational Mode:** What the port actually became (e.g., static access).
+- **Negotiation of Trunking:** Shows if DTP is On or Off.
+
+**2. Verifying DTP packets:**
+backtick cisco
+Switch# show dtp
+backtick
+(This shows how many DTP packets are being sent/received).
+
+
+### ⚠️ Note: Best Practice for Security
+
+In a professional environment (Offensive Security mindset):
+1. **Never leave ports in Dynamic Auto.** An attacker can send a DTP "Desirable" packet and turn their PC link into a Trunk, gaining access to all VLANs (VLAN Hopping).
+2. **Static Configuration:** Always use `switchport mode trunk` and `switchport nonegotiate` on switch-to-switch links.
+3. **Access Ports:** On ports connected to end-devices (PCs, Laptops), use `switchport mode access` and disable DTP.
+
 
