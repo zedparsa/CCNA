@@ -370,26 +370,26 @@ This table explains what the **Operational Mode** of the link will be based on t
 #### 3. Configuration Commands
 
 **Setting a port to Actively Negotiate:**
-backtick cisco
+```cisco
 Switch(config)# interface gig0/1
 Switch(config-if)# switchport mode dynamic desirable
-backtick
+```
 
 **Disabling DTP (The Professional/Secure Way):**
 To prevent a port from sending DTP frames, use the `nonegotiate` command. This is only possible if the port is manually set to Trunk or Access.
-backtick cisco
+```cisco
 Switch(config-if)# switchport mode trunk
 Switch(config-if)# switchport nonegotiate
-backtick
+```
 
 
 ### ✅ Verification:
 
 **1. Detailed Switchport Status:**
 This is the most important command to see what is happening "under the hood".
-backtick cisco
+```cisco
 Switch# show interface fa0/1 switchport
-backtick
+```
 
 Look for these lines in the output:
 - **Administrative Mode:** What you configured (e.g., dynamic auto).
@@ -397,9 +397,9 @@ Look for these lines in the output:
 - **Negotiation of Trunking:** Shows if DTP is On or Off.
 
 **2. Verifying DTP packets:**
-backtick cisco
+```cisco
 Switch# show dtp
-backtick
+```
 (This shows how many DTP packets are being sent/received).
 
 
