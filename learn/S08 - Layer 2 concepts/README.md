@@ -351,7 +351,7 @@ There are four primary modes for a switch port:
 | **Dynamic Desirable** | Actively asks the other side to become a trunk. |
 
 
-#### 2. The DTP Negotiation Matrix (Analysis of Screenshot)
+#### 2. The DTP Negotiation Matrix
 This table explains what the **Operational Mode** of the link will be based on the **Administrative Mode** of both sides:
 
 | | Dynamic Auto | Dynamic Desirable | Trunk | Access |
